@@ -1303,7 +1303,7 @@ public static class UnfilialBuilder
         Button resume = MenuButton(pauseColumn, "Seguir Jugando");
         Button pauseSound = MenuButton(pauseColumn, "Sonido");
         Button quit = MenuButton(pauseColumn, "Salir");
-        ControlsFooter(pausePanel.transform);
+        ControlsFooter(pausePanel.transform, 170f); // Por encima de la barra del jefe
         pausePanel.gameObject.SetActive(false);
 
         Image soundPanel = FullPanel("SoundPanel", canvas.transform, menuBackground);
@@ -1485,10 +1485,10 @@ public static class UnfilialBuilder
         return slider;
     }
 
-    private static void ControlsFooter(Transform parent)
+    private static void ControlsFooter(Transform parent, float y = 40f)
     {
         TextMeshProUGUI hint = Label("ControlsHint", parent, ControlsHint, 24f, new Color(0.6f, 0.62f, 0.7f));
-        Place(hint.gameObject, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(1850f, 50f));
+        Place(hint.gameObject, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, y), new Vector2(1850f, 50f));
     }
 
     // ================================================================== ESCENAS
