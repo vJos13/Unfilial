@@ -22,6 +22,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float titleHoldTime = 2f;
     [SerializeField] private float fadeTime = 1f;
 
+    [Header("Jefe")]
+    [SerializeField] private GameObject bossBar;
+    [SerializeField] private Image bossHealthFill;
+    [SerializeField] private TextMeshProUGUI bossNameText;
+
     [Header("Paneles")]
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject levelCompletePanel;
@@ -51,6 +56,9 @@ public class UIManager : MonoBehaviour
         GameEvents.OnPowerLevelChanged += HandlePowerLevelChanged;
         GameEvents.OnPlayerDeath += ShowGameOver;
         GameEvents.OnLevelCompleted += ShowLevelComplete;
+        GameEvents.OnBossEncounterStarted += ShowBossBar;
+        GameEvents.OnBossHealthChanged += UpdateBossHealth;
+        GameEvents.OnBossDefeated += HideBossBar;
     }
 
     private void OnDisable()
@@ -60,6 +68,9 @@ public class UIManager : MonoBehaviour
         GameEvents.OnPowerLevelChanged -= HandlePowerLevelChanged;
         GameEvents.OnPlayerDeath -= ShowGameOver;
         GameEvents.OnLevelCompleted -= ShowLevelComplete;
+        GameEvents.OnBossEncounterStarted -= ShowBossBar;
+        GameEvents.OnBossHealthChanged -= UpdateBossHealth;
+        GameEvents.OnBossDefeated -= HideBossBar;
     }
 
     private void Start()
@@ -67,6 +78,7 @@ public class UIManager : MonoBehaviour
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
         if (levelCompletePanel != null) levelCompletePanel.SetActive(false);
         if (toastText != null) toastText.alpha = 0f;
+        if (bossBar != null) bossBar.SetActive(false);
 
         // Los orbes persisten entre escenas (GameManager es DontDestroyOnLoad),
         // así que sincronizamos el valor inicial al cargar.
@@ -127,6 +139,23 @@ public class UIManager : MonoBehaviour
         }
 
         text.alpha = 0f;
+    }
+
+    private void ShowBossBar(string bossName)
+    {
+        if (bossNameText != null) bossNameText.text = bossName.ToUpperInvariant();
+        if (bossBar != null) bossBar.SetActive(true);
+    }
+
+    private void UpdateBossHealth(int currentHealth, int maxHealth)
+    {
+        if (bossHealthFill != null) bossHealthFill.fillAmount = maxHealth > 0 ? (float)currentHealth / maxHealth : 0f;
+    }
+
+    private void HideBossBar()
+    {
+        if (bossBar != null) bossBar.SetActive(false);
+        ShowToast("¡Jefe derrotado!");
     }
 
     private void ShowGameOver()

@@ -1,0 +1,414 @@
+{
+  "boss": "Heraldo Celestial",
+  "level": 3,
+  "image": "boss_heraldo.png",
+  "size": {
+    "width": 1024,
+    "height": 896
+  },
+  "frame_size": {
+    "width": 128,
+    "height": 128
+  },
+  "columns": 8,
+  "facing": "left",
+  "coordinate_origin": "top-left (en Unity: y_unity = altura_hoja - y - alto)",
+  "pivot_normalized": {
+    "x": 0.5,
+    "y": 0.5
+  },
+  "pivot_note": "Flota: pivote en el centro del cuerpo (X=64, y=64).",
+  "telegraph_frames": {
+    "attack_melee": [
+      0,
+      1
+    ],
+    "attack_special": [
+      0,
+      1
+    ]
+  },
+  "palette": {
+    "OUT": "#0A0A12",
+    "ROBE_D": "#2E2552",
+    "ROBE": "#5B4A9E",
+    "ROBE_L": "#8270C8",
+    "GOLD_D": "#C99A4A",
+    "GOLD": "#FFD98A",
+    "GOLD_L": "#FFF4D1",
+    "WING_SH": "#A9A2CC",
+    "WING": "#E8E4F8",
+    "HALO": "#FFE9A8",
+    "LIGHT": "#FFFFFF"
+  },
+  "animations": {
+    "idle": {
+      "row": 0,
+      "frames": 4,
+      "fps": 6,
+      "loop": true
+    },
+    "move": {
+      "row": 1,
+      "frames": 6,
+      "fps": 8,
+      "loop": true
+    },
+    "attack_melee": {
+      "row": 2,
+      "frames": 6,
+      "fps": 10,
+      "loop": false
+    },
+    "attack_special": {
+      "row": 3,
+      "frames": 6,
+      "fps": 10,
+      "loop": false
+    },
+    "hurt": {
+      "row": 4,
+      "frames": 2,
+      "fps": 10,
+      "loop": false
+    },
+    "phase2": {
+      "row": 5,
+      "frames": 4,
+      "fps": 8,
+      "loop": false
+    },
+    "death": {
+      "row": 6,
+      "frames": 8,
+      "fps": 8,
+      "loop": false
+    }
+  },
+  "frames": [
+    {
+      "name": "boss_heraldo_idle_0",
+      "animation": "idle",
+      "index": 0,
+      "x": 0,
+      "y": 0,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_idle_1",
+      "animation": "idle",
+      "index": 1,
+      "x": 128,
+      "y": 0,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_idle_2",
+      "animation": "idle",
+      "index": 2,
+      "x": 256,
+      "y": 0,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_idle_3",
+      "animation": "idle",
+      "index": 3,
+      "x": 384,
+      "y": 0,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_move_0",
+      "animation": "move",
+      "index": 0,
+      "x": 0,
+      "y": 128,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_move_1",
+      "animation": "move",
+      "index": 1,
+      "x": 128,
+      "y": 128,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_move_2",
+      "animation": "move",
+      "index": 2,
+      "x": 256,
+      "y": 128,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_move_3",
+      "animation": "move",
+      "index": 3,
+      "x": 384,
+      "y": 128,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_move_4",
+      "animation": "move",
+      "index": 4,
+      "x": 512,
+      "y": 128,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_move_5",
+      "animation": "move",
+      "index": 5,
+      "x": 640,
+      "y": 128,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_melee_0",
+      "animation": "attack_melee",
+      "index": 0,
+      "x": 0,
+      "y": 256,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_melee_1",
+      "animation": "attack_melee",
+      "index": 1,
+      "x": 128,
+      "y": 256,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_melee_2",
+      "animation": "attack_melee",
+      "index": 2,
+      "x": 256,
+      "y": 256,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_melee_3",
+      "animation": "attack_melee",
+      "index": 3,
+      "x": 384,
+      "y": 256,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_melee_4",
+      "animation": "attack_melee",
+      "index": 4,
+      "x": 512,
+      "y": 256,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_melee_5",
+      "animation": "attack_melee",
+      "index": 5,
+      "x": 640,
+      "y": 256,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_special_0",
+      "animation": "attack_special",
+      "index": 0,
+      "x": 0,
+      "y": 384,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_special_1",
+      "animation": "attack_special",
+      "index": 1,
+      "x": 128,
+      "y": 384,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_special_2",
+      "animation": "attack_special",
+      "index": 2,
+      "x": 256,
+      "y": 384,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_special_3",
+      "animation": "attack_special",
+      "index": 3,
+      "x": 384,
+      "y": 384,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_special_4",
+      "animation": "attack_special",
+      "index": 4,
+      "x": 512,
+      "y": 384,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_attack_special_5",
+      "animation": "attack_special",
+      "index": 5,
+      "x": 640,
+      "y": 384,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_hurt_0",
+      "animation": "hurt",
+      "index": 0,
+      "x": 0,
+      "y": 512,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_hurt_1",
+      "animation": "hurt",
+      "index": 1,
+      "x": 128,
+      "y": 512,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_phase2_0",
+      "animation": "phase2",
+      "index": 0,
+      "x": 0,
+      "y": 640,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_phase2_1",
+      "animation": "phase2",
+      "index": 1,
+      "x": 128,
+      "y": 640,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_phase2_2",
+      "animation": "phase2",
+      "index": 2,
+      "x": 256,
+      "y": 640,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_phase2_3",
+      "animation": "phase2",
+      "index": 3,
+      "x": 384,
+      "y": 640,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_death_0",
+      "animation": "death",
+      "index": 0,
+      "x": 0,
+      "y": 768,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_death_1",
+      "animation": "death",
+      "index": 1,
+      "x": 128,
+      "y": 768,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_death_2",
+      "animation": "death",
+      "index": 2,
+      "x": 256,
+      "y": 768,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_death_3",
+      "animation": "death",
+      "index": 3,
+      "x": 384,
+      "y": 768,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_death_4",
+      "animation": "death",
+      "index": 4,
+      "x": 512,
+      "y": 768,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_death_5",
+      "animation": "death",
+      "index": 5,
+      "x": 640,
+      "y": 768,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_death_6",
+      "animation": "death",
+      "index": 6,
+      "x": 768,
+      "y": 768,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "name": "boss_heraldo_death_7",
+      "animation": "death",
+      "index": 7,
+      "x": 896,
+      "y": 768,
+      "width": 128,
+      "height": 128
+    }
+  ]
+}

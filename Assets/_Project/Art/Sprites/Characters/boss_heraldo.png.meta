@@ -1,0 +1,1181 @@
+fileFormatVersion: 2
+guid: 664f38d0108c4c9aaba8696dd43f6112
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9199245717958492868
+    second: boss_heraldo_0
+  - first:
+      213: -714583945811723113
+    second: boss_heraldo_1
+  - first:
+      213: 9097496355323143663
+    second: boss_heraldo_2
+  - first:
+      213: -5183026242647322597
+    second: boss_heraldo_3
+  - first:
+      213: -3186332245540250293
+    second: boss_heraldo_4
+  - first:
+      213: -1173961725947998448
+    second: boss_heraldo_5
+  - first:
+      213: 1456749691100235585
+    second: boss_heraldo_6
+  - first:
+      213: -7192848428257022879
+    second: boss_heraldo_7
+  - first:
+      213: -5439629330683872121
+    second: boss_heraldo_8
+  - first:
+      213: -3586287065476980909
+    second: boss_heraldo_9
+  - first:
+      213: -8342249381938045660
+    second: boss_heraldo_10
+  - first:
+      213: -10786378630939594
+    second: boss_heraldo_11
+  - first:
+      213: -1706204518373787824
+    second: boss_heraldo_12
+  - first:
+      213: 5867253492679032763
+    second: boss_heraldo_13
+  - first:
+      213: 7859575401744734778
+    second: boss_heraldo_14
+  - first:
+      213: 6295257485789226969
+    second: boss_heraldo_15
+  - first:
+      213: -299863453071682814
+    second: boss_heraldo_16
+  - first:
+      213: 8330142389895508843
+    second: boss_heraldo_17
+  - first:
+      213: -8353847691648593564
+    second: boss_heraldo_18
+  - first:
+      213: -1855520554242468197
+    second: boss_heraldo_19
+  - first:
+      213: -6148493081378387170
+    second: boss_heraldo_20
+  - first:
+      213: -8808946880765778541
+    second: boss_heraldo_21
+  - first:
+      213: -8208657837230948735
+    second: boss_heraldo_22
+  - first:
+      213: -1113742424302432954
+    second: boss_heraldo_23
+  - first:
+      213: 3758323388671055860
+    second: boss_heraldo_24
+  - first:
+      213: -5452454497316804918
+    second: boss_heraldo_25
+  - first:
+      213: 1170544697427876974
+    second: boss_heraldo_26
+  - first:
+      213: 5186525547864298950
+    second: boss_heraldo_27
+  - first:
+      213: 5959359430295265047
+    second: boss_heraldo_28
+  - first:
+      213: -1340777687606257635
+    second: boss_heraldo_29
+  - first:
+      213: 108798287854679737
+    second: boss_heraldo_30
+  - first:
+      213: -2643074293332821310
+    second: boss_heraldo_31
+  - first:
+      213: 2796324753853110321
+    second: boss_heraldo_32
+  - first:
+      213: 852875538801108415
+    second: boss_heraldo_33
+  - first:
+      213: -6365251135120974920
+    second: boss_heraldo_34
+  - first:
+      213: 2991565861179815290
+    second: boss_heraldo_35
+  - first:
+      213: 1494159098681148336
+    second: boss_heraldo_36
+  - first:
+      213: -4513581334947823635
+    second: boss_heraldo_37
+  - first:
+      213: -6961041848935264126
+    second: boss_heraldo_38
+  - first:
+      213: 2297178424254163339
+    second: boss_heraldo_39
+  - first:
+      213: 6699926579452767820
+    second: boss_heraldo_40
+  - first:
+      213: -2184703673149207656
+    second: boss_heraldo_41
+  - first:
+      213: -4210141122906234738
+    second: boss_heraldo_42
+  - first:
+      213: -2752770740742305715
+    second: boss_heraldo_43
+  - first:
+      213: 4186499941814889714
+    second: boss_heraldo_44
+  - first:
+      213: 6282792585883277443
+    second: boss_heraldo_45
+  - first:
+      213: -1258961707336925909
+    second: boss_heraldo_46
+  - first:
+      213: 2672330437215206063
+    second: boss_heraldo_47
+  - first:
+      213: -9009652924384975379
+    second: boss_heraldo_48
+  - first:
+      213: -6373914949820916554
+    second: boss_heraldo_49
+  - first:
+      213: -1547242132846073759
+    second: boss_heraldo_50
+  - first:
+      213: -6731165497518631284
+    second: boss_heraldo_51
+  - first:
+      213: 3175779367792761992
+    second: boss_heraldo_52
+  - first:
+      213: 7212942561804701971
+    second: boss_heraldo_53
+  - first:
+      213: -8745964317322452465
+    second: boss_heraldo_54
+  - first:
+      213: -7993696710091572844
+    second: boss_heraldo_55
+  - first:
+      213: -890496785921211335
+    second: boss_heraldo_56
+  - first:
+      213: -5554938065787651860
+    second: boss_heraldo_57
+  - first:
+      213: 7802265545068554727
+    second: boss_heraldo_58
+  - first:
+      213: 6350027370147884195
+    second: boss_heraldo_59
+  - first:
+      213: -3253574952394274515
+    second: boss_heraldo_60
+  - first:
+      213: 1477582245826944210
+    second: boss_heraldo_61
+  - first:
+      213: -5472530517419801556
+    second: boss_heraldo_62
+  - first:
+      213: -7561667842057682069
+    second: boss_heraldo_63
+  - first:
+      213: -2613990359545626017
+    second: boss_heraldo_64
+  - first:
+      213: 5357674271417166115
+    second: boss_heraldo_65
+  - first:
+      213: 4299823084606339683
+    second: boss_heraldo_66
+  - first:
+      213: 3611715899981385534
+    second: boss_heraldo_67
+  - first:
+      213: 7491620696261152892
+    second: boss_heraldo_68
+  - first:
+      213: 5418486085956716805
+    second: boss_heraldo_69
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boss_heraldo_idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 313aa862d02b086e9a99615bf0c9e668
+      internalID: 705828432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_idle_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae52f85fc81fc761bbbf4a7146398d5e
+      internalID: 2145358765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_idle_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04a54f9636635f895a97ab8a5ec98d98
+      internalID: -292786529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_idle_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c1f5324fc19243739dba480b8738354
+      internalID: -153954953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_move_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9355e68a21565cfcc9dfc329fb40c361
+      internalID: -869270508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_move_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdc512ccfbd58282bb1998d594f766ba
+      internalID: -643464043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_move_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 541176d63fc78c708b13dd61d5899de8
+      internalID: 381452567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_move_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afd516bd18d8a0f99ad37a0605a5ef22
+      internalID: 1386559990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_move_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87d51a3f800ac08359e99116cb465e1b
+      internalID: -361272131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_move_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 565a65847804705148d9348b43ec9122
+      internalID: -1929358250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_melee_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9a399fd39a55b0fcb25ab451fe5e38b
+      internalID: 1067173245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_melee_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba6c56ea6307e54f3b7f3f27a46e0783
+      internalID: 464204468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_melee_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17f20a8b397287fb0a51fd2578be22de
+      internalID: -298054023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_melee_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fa8044515b7a7a2bad16a08b60a22a7
+      internalID: -98806044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_melee_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa956a261ccc33df9cd3c364f90d8c0
+      internalID: 1714890209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_melee_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c0e93a0ae1c05f3bb1ce024722a8a62
+      internalID: -786415895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_special_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de14253ecf394ba5886878e65e8ad5d0
+      internalID: 287318208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_special_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8dd17c7b8a84a2819fe540dcff6fb03
+      internalID: 266927208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_special_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce970d2cfe346846981104b929d4b405
+      internalID: -2098334348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_special_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6145111891ead743bc7d8cdd6d90a6d
+      internalID: -1594452052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_special_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e8a50d6ff2534df081cc9a4bc675089
+      internalID: 281530418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_attack_special_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bfb708d0ead43f37888c0393470c002
+      internalID: -1233988335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_hurt_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eee315c87fc96c528e34dba4a202abe
+      internalID: 417666006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_hurt_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed59c91ba9e9c93a58486b9a5f40af25
+      internalID: 1486003936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_phase2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1195d97063f72b0498f4b3d5735346fd
+      internalID: 279631129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_phase2_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1aacd239b82441ef967686653a35b89
+      internalID: -756780216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_phase2_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a47deef4eef3f2f8a949e4ad4397b1be
+      internalID: -532850086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_phase2_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a97b672d572305421aa961a8ec084fab
+      internalID: -757523876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_death_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6a395dd9287f387d9024c64b3a28285
+      internalID: -604914526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_death_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 109f6bc4e8e3bcfc2ad2e68a6a3be01b
+      internalID: -375203993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_death_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77a2b8a46e2522cddb17ef507a169a1c
+      internalID: 1825183363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_death_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7733262dfbef91c1893189ae533f6b06
+      internalID: -667889607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_death_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdd8c83a71373b07a8aad9a5775d56d8
+      internalID: -767032303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_death_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 173504a45eab081a5ab98f610aa3595b
+      internalID: 1164527513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_death_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bc260dff66f5f9578d640b8d7608579
+      internalID: -35091679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_heraldo_death_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cb97fb5d58574da7a077850405fbb25
+      internalID: -1883214904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 22448c2113a9f5eabaf57bec1dbc2e04
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      boss_heraldo_attack_melee_0: 1067173245
+      boss_heraldo_attack_melee_1: 464204468
+      boss_heraldo_attack_melee_2: -298054023
+      boss_heraldo_attack_melee_3: -98806044
+      boss_heraldo_attack_melee_4: 1714890209
+      boss_heraldo_attack_melee_5: -786415895
+      boss_heraldo_attack_special_0: 287318208
+      boss_heraldo_attack_special_1: 266927208
+      boss_heraldo_attack_special_2: -2098334348
+      boss_heraldo_attack_special_3: -1594452052
+      boss_heraldo_attack_special_4: 281530418
+      boss_heraldo_attack_special_5: -1233988335
+      boss_heraldo_death_0: -604914526
+      boss_heraldo_death_1: -375203993
+      boss_heraldo_death_2: 1825183363
+      boss_heraldo_death_3: -667889607
+      boss_heraldo_death_4: -767032303
+      boss_heraldo_death_5: 1164527513
+      boss_heraldo_death_6: -35091679
+      boss_heraldo_death_7: -1883214904
+      boss_heraldo_hurt_0: 417666006
+      boss_heraldo_hurt_1: 1486003936
+      boss_heraldo_idle_0: 705828432
+      boss_heraldo_idle_1: 2145358765
+      boss_heraldo_idle_2: -292786529
+      boss_heraldo_idle_3: -153954953
+      boss_heraldo_move_0: -869270508
+      boss_heraldo_move_1: -643464043
+      boss_heraldo_move_2: 381452567
+      boss_heraldo_move_3: 1386559990
+      boss_heraldo_move_4: -361272131
+      boss_heraldo_move_5: -1929358250
+      boss_heraldo_phase2_0: 279631129
+      boss_heraldo_phase2_1: -756780216
+      boss_heraldo_phase2_2: -532850086
+      boss_heraldo_phase2_3: -757523876
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

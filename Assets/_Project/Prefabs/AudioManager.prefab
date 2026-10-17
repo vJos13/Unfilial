@@ -75,4 +75,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 23951997550f4f2ca98b31a6f736ae22, type: 3}
   - type: 12
     clip: {fileID: 8300000, guid: f46648ffa01da51ce93cb268c69e67e3, type: 3}
+  - type: 13
+    clip: {fileID: 8300000, guid: 1e5b1afc9be5661f496c6f18136505ae, type: 3}
   pitchRange: {x: 0.9, y: 1.1}

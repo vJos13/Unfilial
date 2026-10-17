@@ -103,6 +103,18 @@ public static class ProceduralAudio
                 });
             case SfxType.PowerUp:
                 return Arpeggio("sfx_powerup", new[] { 440f, 554.37f, 659.25f, 880f, 1108.73f }, 0.09f, 0.5f);
+            case SfxType.BossRoar:
+            {
+                // Rugido grave: diente de sierra con vibrato + ruido filtrado
+                float filtered = 0f;
+                return Build("sfx_boss_roar", 1.2f, SfxSampleRate, t =>
+                {
+                    float freq = Mathf.Lerp(95f, 60f, t / 1.2f) * (1f + 0.06f * Mathf.Sin(TwoPi * 7f * t));
+                    float saw = 2f * ((freq * t) % 1f) - 1f;
+                    filtered += 0.08f * (Noise() - filtered);
+                    return (saw * 0.6f + filtered * 2.5f) * Envelope(t, 0.15f, 1.2f);
+                });
+            }
             case SfxType.UIClick:
                 return Build("sfx_click", 0.06f, SfxSampleRate, t => Mathf.Sin(TwoPi * 880f * t) * Mathf.Exp(-t * 70f));
             case SfxType.LevelComplete:

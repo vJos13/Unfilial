@@ -1,0 +1,516 @@
+{
+  "image": "player_sheet.png",
+  "size": {
+    "width": 512,
+    "height": 704
+  },
+  "frame_size": {
+    "width": 64,
+    "height": 64
+  },
+  "columns": 8,
+  "coordinate_origin": "top-left (en Unity el origen del rect es bottom-left: y_unity = altura_hoja - y - alto)",
+  "pivot_normalized": {
+    "x": 0.5,
+    "y": 0.046875
+  },
+  "pivot_note": "Pivote en los pies: X=32, borde inferior del contorno en y=60.",
+  "palette": {
+    "OUT": "#0A0A12",
+    "CAPE": "#232638",
+    "CAPE_SH": "#171926",
+    "CAPE_HI": "#343952",
+    "MASK": "#F2EEE4",
+    "MASK_SH": "#C4BDAE",
+    "GOLD": "#FFD98A",
+    "GOLD_SH": "#C99A4A",
+    "GLOW": "#FFF4D1",
+    "SWORD": "#D9DFF2",
+    "SWORD_SH": "#8E97B5",
+    "WHITE": "#FFFFFF"
+  },
+  "animations": {
+    "idle": {
+      "row": 0,
+      "frames": 4,
+      "fps": 6,
+      "loop": true
+    },
+    "run": {
+      "row": 1,
+      "frames": 8,
+      "fps": 12,
+      "loop": true
+    },
+    "jump": {
+      "row": 2,
+      "frames": 3,
+      "fps": 10,
+      "loop": false
+    },
+    "fall": {
+      "row": 3,
+      "frames": 3,
+      "fps": 10,
+      "loop": true
+    },
+    "attack": {
+      "row": 4,
+      "frames": 5,
+      "fps": 18,
+      "loop": false
+    },
+    "attack_up": {
+      "row": 5,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    "attack_down": {
+      "row": 6,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    "block": {
+      "row": 7,
+      "frames": 3,
+      "fps": 12,
+      "loop": false
+    },
+    "dash": {
+      "row": 8,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    "hurt": {
+      "row": 9,
+      "frames": 2,
+      "fps": 10,
+      "loop": false
+    },
+    "death": {
+      "row": 10,
+      "frames": 6,
+      "fps": 8,
+      "loop": false
+    }
+  },
+  "frames": [
+    {
+      "name": "player_idle_0",
+      "animation": "idle",
+      "index": 0,
+      "x": 0,
+      "y": 0,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_idle_1",
+      "animation": "idle",
+      "index": 1,
+      "x": 64,
+      "y": 0,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_idle_2",
+      "animation": "idle",
+      "index": 2,
+      "x": 128,
+      "y": 0,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_idle_3",
+      "animation": "idle",
+      "index": 3,
+      "x": 192,
+      "y": 0,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_run_0",
+      "animation": "run",
+      "index": 0,
+      "x": 0,
+      "y": 64,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_run_1",
+      "animation": "run",
+      "index": 1,
+      "x": 64,
+      "y": 64,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_run_2",
+      "animation": "run",
+      "index": 2,
+      "x": 128,
+      "y": 64,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_run_3",
+      "animation": "run",
+      "index": 3,
+      "x": 192,
+      "y": 64,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_run_4",
+      "animation": "run",
+      "index": 4,
+      "x": 256,
+      "y": 64,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_run_5",
+      "animation": "run",
+      "index": 5,
+      "x": 320,
+      "y": 64,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_run_6",
+      "animation": "run",
+      "index": 6,
+      "x": 384,
+      "y": 64,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_run_7",
+      "animation": "run",
+      "index": 7,
+      "x": 448,
+      "y": 64,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_jump_0",
+      "animation": "jump",
+      "index": 0,
+      "x": 0,
+      "y": 128,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_jump_1",
+      "animation": "jump",
+      "index": 1,
+      "x": 64,
+      "y": 128,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_jump_2",
+      "animation": "jump",
+      "index": 2,
+      "x": 128,
+      "y": 128,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_fall_0",
+      "animation": "fall",
+      "index": 0,
+      "x": 0,
+      "y": 192,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_fall_1",
+      "animation": "fall",
+      "index": 1,
+      "x": 64,
+      "y": 192,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_fall_2",
+      "animation": "fall",
+      "index": 2,
+      "x": 128,
+      "y": 192,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_0",
+      "animation": "attack",
+      "index": 0,
+      "x": 0,
+      "y": 256,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_1",
+      "animation": "attack",
+      "index": 1,
+      "x": 64,
+      "y": 256,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_2",
+      "animation": "attack",
+      "index": 2,
+      "x": 128,
+      "y": 256,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_3",
+      "animation": "attack",
+      "index": 3,
+      "x": 192,
+      "y": 256,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_4",
+      "animation": "attack",
+      "index": 4,
+      "x": 256,
+      "y": 256,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_up_0",
+      "animation": "attack_up",
+      "index": 0,
+      "x": 0,
+      "y": 320,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_up_1",
+      "animation": "attack_up",
+      "index": 1,
+      "x": 64,
+      "y": 320,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_up_2",
+      "animation": "attack_up",
+      "index": 2,
+      "x": 128,
+      "y": 320,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_up_3",
+      "animation": "attack_up",
+      "index": 3,
+      "x": 192,
+      "y": 320,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_down_0",
+      "animation": "attack_down",
+      "index": 0,
+      "x": 0,
+      "y": 384,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_down_1",
+      "animation": "attack_down",
+      "index": 1,
+      "x": 64,
+      "y": 384,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_down_2",
+      "animation": "attack_down",
+      "index": 2,
+      "x": 128,
+      "y": 384,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_attack_down_3",
+      "animation": "attack_down",
+      "index": 3,
+      "x": 192,
+      "y": 384,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_block_0",
+      "animation": "block",
+      "index": 0,
+      "x": 0,
+      "y": 448,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_block_1",
+      "animation": "block",
+      "index": 1,
+      "x": 64,
+      "y": 448,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_block_2",
+      "animation": "block",
+      "index": 2,
+      "x": 128,
+      "y": 448,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_dash_0",
+      "animation": "dash",
+      "index": 0,
+      "x": 0,
+      "y": 512,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_dash_1",
+      "animation": "dash",
+      "index": 1,
+      "x": 64,
+      "y": 512,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_dash_2",
+      "animation": "dash",
+      "index": 2,
+      "x": 128,
+      "y": 512,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_dash_3",
+      "animation": "dash",
+      "index": 3,
+      "x": 192,
+      "y": 512,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_hurt_0",
+      "animation": "hurt",
+      "index": 0,
+      "x": 0,
+      "y": 576,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_hurt_1",
+      "animation": "hurt",
+      "index": 1,
+      "x": 64,
+      "y": 576,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_death_0",
+      "animation": "death",
+      "index": 0,
+      "x": 0,
+      "y": 640,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_death_1",
+      "animation": "death",
+      "index": 1,
+      "x": 64,
+      "y": 640,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_death_2",
+      "animation": "death",
+      "index": 2,
+      "x": 128,
+      "y": 640,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_death_3",
+      "animation": "death",
+      "index": 3,
+      "x": 192,
+      "y": 640,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_death_4",
+      "animation": "death",
+      "index": 4,
+      "x": 256,
+      "y": 640,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "name": "player_death_5",
+      "animation": "death",
+      "index": 5,
+      "x": 320,
+      "y": 640,
+      "width": 64,
+      "height": 64
+    }
+  ]
+}

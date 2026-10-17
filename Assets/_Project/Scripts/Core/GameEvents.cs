@@ -14,6 +14,11 @@ public static class GameEvents
     public static Action OnLevelCompleted;
     public static Action<bool> OnGamePaused; // true = pausado
 
+    // Eventos de jefes
+    public static Action<string> OnBossEncounterStarted; // nombre del jefe
+    public static Action<int, int> OnBossHealthChanged;  // vida actual, vida máxima
+    public static Action OnBossDefeated;
+
     // Eventos de progresión
     public static Action<int> OnPowerLevelChanged; // nivel de poder (sube cada X orbes)
 

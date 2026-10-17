@@ -15,5 +15,6 @@ public enum SfxType
     OrbPickup,
     PowerUp,
     UIClick,
-    LevelComplete
+    LevelComplete,
+    BossRoar
 }

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEditor;
@@ -24,13 +26,14 @@ using Object = UnityEngine.Object;
 /// Genera todo el contenido del juego: arte pixel-art procedural (hojas de sprites y tileset),
 /// animaciones + Animator, paleta de tiles, audio (.wav + MainMixer), VFX, prefabs,
 /// menú principal y los 3 niveles a partir de los mapas de texto en _Project/Levels.
-/// Leyenda: '#' suelo, '^' pinchos, 'P' jugador, 'E' Crawler, 'B' Brute, 'S' Vigía, 'o' orbe, 'X' salida.
+/// Leyenda: '#' suelo, '^' pinchos, 'P' jugador, 'E' Crawler, 'B' Brute, 'S' Vigía, 'K' jefe, 'o' orbe, 'X' salida.
 /// ATENCIÓN: re-ejecutarlo sobrescribe las escenas y assets generados.
 /// </summary>
 public static class UnfilialBuilder
 {
     private const string Root = "Assets/_Project";
     private const string SpriteDir = Root + "/Art/Sprites";
+    private const string CharacterDir = SpriteDir + "/Characters"; // Hojas externas (PNG + JSON)
     private const string TileDir = Root + "/Art/Tiles";
     private const string PaletteDir = Root + "/Art/Palettes";
     private const string FontDir = Root + "/Art/Fonts";
@@ -59,26 +62,66 @@ public static class UnfilialBuilder
     {
         public string Scene, Number, Name;
         public Color Ground, Background, Sky;
+        public int Boss; // índice en Bosses
 
-        public LevelDef(string scene, string number, string name, Color ground, Color background, Color sky)
+        public LevelDef(string scene, string number, string name, Color ground, Color background, Color sky, int boss)
         {
-            Scene = scene; Number = number; Name = name; Ground = ground; Background = background; Sky = sky;
+            Scene = scene; Number = number; Name = name; Ground = ground; Background = background; Sky = sky; Boss = boss;
         }
     }
 
     private static readonly LevelDef[] Levels =
     {
         new LevelDef("Level_01", "NIVEL I", "Ruinas Olvidadas",
-            new Color(0.70f, 0.78f, 0.92f), new Color(0.42f, 0.50f, 0.68f), new Color(0.06f, 0.08f, 0.13f)),
+            new Color(0.70f, 0.78f, 0.92f), new Color(0.42f, 0.50f, 0.68f), new Color(0.06f, 0.08f, 0.13f), 0),
         new LevelDef("Level_02", "NIVEL II", "Cavernas de Ceniza",
-            new Color(0.95f, 0.70f, 0.55f), new Color(0.55f, 0.34f, 0.27f), new Color(0.10f, 0.05f, 0.04f)),
+            new Color(0.95f, 0.70f, 0.55f), new Color(0.55f, 0.34f, 0.27f), new Color(0.10f, 0.05f, 0.04f), 1),
         new LevelDef("Level_03", "NIVEL III", "Templo Celestial",
-            new Color(0.92f, 0.88f, 1.00f), new Color(0.50f, 0.46f, 0.78f), new Color(0.09f, 0.07f, 0.16f)),
+            new Color(0.92f, 0.88f, 1.00f), new Color(0.50f, 0.46f, 0.78f), new Color(0.09f, 0.07f, 0.16f), 2),
+    };
+
+    private class BossDef
+    {
+        public string Sheet, Id, Name;
+        public BossController.SpecialAttack Special;
+        public bool Flying;
+        public Vector2 ColliderSize, ColliderOffset, FirePoint, StrikeBox;
+        public int Health, Orbs, ProjectileDamage;
+        public float Speed, MeleeRange, LungeSpeed, SpawnHeight, ProjectileSpeed, ProjectileScale;
+        public Color ProjectileColor;
+    }
+
+    // Medidas tomadas de la silueta real de cada hoja (128x128 px, 32 PPU, pivote centrado)
+    private static readonly BossDef[] Bosses =
+    {
+        new BossDef
+        {
+            Sheet = "boss_guardian", Id = "Guardian", Name = "Guardián de las Ruinas", Special = BossController.SpecialAttack.GroundWave,
+            ColliderSize = new Vector2(1.3f, 3.1f), ColliderOffset = new Vector2(0f, -0.35f), FirePoint = new Vector2(-1.2f, -1.4f),
+            StrikeBox = new Vector2(2.6f, 3f), Health = 24, Orbs = 15, Speed = 2.2f, MeleeRange = 3.2f, LungeSpeed = 10f, SpawnHeight = 1.93f,
+            ProjectileColor = new Color(0.5f, 0.95f, 1f), ProjectileSpeed = 8f, ProjectileScale = 1.6f, ProjectileDamage = 20,
+        },
+        new BossDef
+        {
+            Sheet = "boss_ceniza", Id = "Ceniza", Name = "Bestia de Ceniza", Special = BossController.SpecialAttack.LavaSpit,
+            ColliderSize = new Vector2(2.9f, 2.3f), ColliderOffset = new Vector2(0.1f, -0.75f), FirePoint = new Vector2(-1.6f, -0.6f),
+            StrikeBox = new Vector2(3f, 2.2f), Health = 36, Orbs = 20, Speed = 3f, MeleeRange = 3.6f, LungeSpeed = 13f, SpawnHeight = 1.93f,
+            ProjectileColor = new Color(1f, 0.5f, 0.2f), ProjectileSpeed = 9f, ProjectileScale = 1.1f, ProjectileDamage = 15,
+        },
+        new BossDef
+        {
+            Sheet = "boss_heraldo", Id = "Heraldo", Name = "Heraldo Celestial", Special = BossController.SpecialAttack.LightLances, Flying = true,
+            ColliderSize = new Vector2(1.4f, 2.8f), ColliderOffset = new Vector2(0.1f, 0.1f), FirePoint = new Vector2(-1.2f, 0.6f),
+            StrikeBox = new Vector2(2.8f, 3f), Health = 48, Orbs = 25, Speed = 3.2f, MeleeRange = 3.5f, LungeSpeed = 12f, SpawnHeight = 4f,
+            ProjectileColor = new Color(1f, 0.9f, 0.55f), ProjectileSpeed = 11f, ProjectileScale = 0.9f, ProjectileDamage = 15,
+        },
     };
 
     private class Art
     {
-        public Dictionary<string, Sprite> PlayerFrames;
+        public Sheet PlayerSheet;
+        public Sheet[] BossSheets;
+        public RuntimeAnimatorController[] BossControllers;
         public Sprite Orb, Crawler, Brute, Shooter, Slash, Shield, Gate, UIWhite;
         public TileBase[] GroundByMask; // índice = arriba(8) | abajo(4) | izquierda(2) | derecha(1) expuestos
         public TileBase GroundCracked, Spikes, BackWall, BackWallAlt;
@@ -89,6 +132,7 @@ public static class UnfilialBuilder
     private class Prefabs
     {
         public GameObject Player, Crawler, Brute, Shooter, Projectile, Orb, Exit, Canvas, GameManager, AudioManager, HitVfx;
+        public GameObject[] Bosses;
     }
 
     private static int GroundLayer => LayerMask.NameToLayer("Ground");
@@ -145,8 +189,10 @@ public static class UnfilialBuilder
     {
         var art = new Art();
 
-        art.PlayerFrames = BuildPlayerSheet();
-        art.PlayerController = BuildPlayerAnimator(art.PlayerFrames);
+        art.PlayerSheet = ImportSheet("player_sheet");
+        art.PlayerController = BuildPlayerAnimator(art.PlayerSheet);
+        art.BossSheets = Bosses.Select(b => ImportSheet(b.Sheet)).ToArray();
+        art.BossControllers = Bosses.Select((b, i) => BuildBossAnimator(art.BossSheets[i], b.Id)).ToArray();
         BuildTileset(art);
 
         art.Orb = MakeSprite("orb", 32, 32, 64, (x, y) =>
@@ -252,180 +298,97 @@ public static class UnfilialBuilder
         return Vector2.Distance(new Vector2(x + 0.5f, y + 0.5f), new Vector2((x0 + x1) * 0.5f, springY)) <= radius;
     }
 
-    // ------------------------------------------------------------------ Personaje (hoja de sprites + FSM)
+    // ------------------------------------------------------------------ Hojas externas (personaje y jefes) + FSM
 
-    private class PlayerPose
+    [Serializable] private class SheetSize { public int width; public int height; }
+    [Serializable] private class SheetFrame { public string name; public string animation; public int index; public int x; public int y; public int width; public int height; }
+    [Serializable] private class SheetData { public SheetSize size; public SheetFrame[] frames; }
+
+    private class SheetAnimation
     {
         public string Name;
-        public int HeadDy;
-        public int LeftLegDx, RightLegDx, LeftLift, RightLift;
-        public int Flare, Sway;
-        public float? NailAngle;
-        public bool EyesClosed;
+        public int Frames;
+        public float Fps;
+        public bool Loop;
     }
 
-    private static Dictionary<string, Sprite> BuildPlayerSheet()
+    private class Sheet
     {
-        var poses = new List<PlayerPose>();
-        int[] idleHead = { 0, 1, 1, 0 };
-        for (int i = 0; i < 4; i++) poses.Add(new PlayerPose { Name = $"player_idle_{i}", HeadDy = idleHead[i], LeftLegDx = 0, RightLegDx = 0 });
+        public string Prefix;
+        public Dictionary<string, Sprite> Sprites;
+        public List<SheetAnimation> Animations;
 
-        int[] runLeg = { -3, -1, 2, 3, 1, -2 };
-        int[] runSway = { -1, -2, -1, -1, -2, -1 };
-        int[] runHead = { 0, 1, 0, 0, 1, 0 };
-        for (int i = 0; i < 6; i++)
+        public Sprite Frame(string animation, int index) => Sprites[$"{Prefix}_{animation}_{index}"];
+    }
+
+    /// <summary>
+    /// Importa una hoja PNG generada externamente (Art/Sprites/Characters) y la corta según su JSON.
+    /// El JSON usa origen arriba-izquierda; Unity usa abajo-izquierda.
+    /// </summary>
+    private static Sheet ImportSheet(string baseName)
+    {
+        string png = $"{CharacterDir}/{baseName}.png";
+        string jsonText = File.ReadAllText($"{CharacterDir}/{baseName}.json");
+        var data = JsonUtility.FromJson<SheetData>(jsonText);
+
+        ConfigureImporter(png, SpriteImportMode.Multiple, TileSize);
+        var rects = data.frames
+            .Select(f => (f.name, new Rect(f.x, data.size.height - f.y - f.height, f.width, f.height)))
+            .ToList();
+
+        var sheet = new Sheet
         {
-            poses.Add(new PlayerPose
+            Prefix = baseName == "player_sheet" ? "player" : baseName,
+            Sprites = SliceSheet(png, rects),
+            Animations = new List<SheetAnimation>(),
+        };
+
+        // "animations": { "idle": { "row": 0, "frames": 4, "fps": 6, "loop": true }, ... }
+        const string pattern = "\"(\\w+)\"\\s*:\\s*\\{\\s*\"row\"\\s*:\\s*\\d+\\s*,\\s*\"frames\"\\s*:\\s*(\\d+)\\s*,\\s*\"fps\"\\s*:\\s*([\\d.]+)\\s*,\\s*\"loop\"\\s*:\\s*(true|false)";
+        foreach (Match match in Regex.Matches(jsonText, pattern))
+        {
+            sheet.Animations.Add(new SheetAnimation
             {
-                Name = $"player_run_{i}", HeadDy = runHead[i], Sway = runSway[i],
-                LeftLegDx = runLeg[i], RightLegDx = -runLeg[i],
-                LeftLift = runLeg[i] > 0 ? 2 : 0, RightLift = runLeg[i] < 0 ? 2 : 0,
+                Name = match.Groups[1].Value,
+                Frames = int.Parse(match.Groups[2].Value),
+                Fps = float.Parse(match.Groups[3].Value, CultureInfo.InvariantCulture),
+                Loop = match.Groups[4].Value == "true",
             });
         }
 
-        poses.Add(new PlayerPose { Name = "player_jump_0", LeftLegDx = -1, RightLegDx = 1, LeftLift = 4, RightLift = 4, Flare = 2, Sway = -1 });
-        poses.Add(new PlayerPose { Name = "player_fall_0", HeadDy = 1, LeftLegDx = -2, RightLegDx = 2, Flare = 4 });
-
-        float[] nail = { 130f, 0f, -45f };
-        int[] attackSway = { 0, -2, -1 };
-        for (int i = 0; i < 3; i++) poses.Add(new PlayerPose { Name = $"player_attack_{i}", NailAngle = nail[i], Sway = attackSway[i], LeftLegDx = -1, RightLegDx = 2 });
-
-        poses.Add(new PlayerPose { Name = "player_hurt_0", HeadDy = -1, EyesClosed = true, Flare = 2, Sway = -2, LeftLegDx = -2, RightLegDx = 1 });
-
-        const int frameW = 32, frameH = 64, columns = 8;
-        int rows = Mathf.CeilToInt(poses.Count / (float)columns);
-        var sheet = new Color[frameW * columns * frameH * rows];
-        var rects = new List<(string, Rect)>();
-
-        for (int i = 0; i < poses.Count; i++)
-        {
-            Color[] frame = DrawPlayerFrame(poses[i], frameW, frameH);
-            int ox = (i % columns) * frameW;
-            int oy = (rows - 1 - i / columns) * frameH; // La primera fila arriba
-            for (int y = 0; y < frameH; y++)
-                for (int x = 0; x < frameW; x++)
-                    sheet[(oy + y) * frameW * columns + ox + x] = frame[y * frameW + x];
-            rects.Add((poses[i].Name, new Rect(ox, oy, frameW, frameH)));
-        }
-
-        return MakeSheet("player_sheet", frameW * columns, frameH * rows, TileSize, sheet, rects);
+        return sheet;
     }
 
-    private static Color[] DrawPlayerFrame(PlayerPose pose, int w, int h)
+    private static AnimationClip CreateClip(Sheet sheet, SheetAnimation animation, string folder, string clipName)
     {
-        var px = new Color[w * h];
-        Color mask = new Color(0.95f, 0.95f, 0.98f);
-        Color eyes = new Color(0.05f, 0.05f, 0.08f);
-        Color cloak = new Color(0.22f, 0.24f, 0.35f);
-        Color cloakShade = new Color(0.15f, 0.16f, 0.25f);
-        Color legs = new Color(0.12f, 0.12f, 0.18f);
-        Color nail = new Color(0.85f, 0.88f, 0.95f);
-        Color outline = new Color(0.04f, 0.04f, 0.07f);
+        string path = $"{folder}/{clipName}.anim";
+        AssetDatabase.DeleteAsset(path);
 
-        void Put(int x, int y, Color c) { if (x >= 0 && x < w && y >= 0 && y < h) px[y * w + x] = c; }
-        void Rect(int x0, int y0, int x1, int y1, Color c) { for (int y = y0; y <= y1; y++) for (int x = x0; x <= x1; x++) Put(x, y, c); }
-        void Ellipse(float cx, float cy, float rx, float ry, Color c)
+        var clip = new AnimationClip { frameRate = animation.Fps };
+        var binding = EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite");
+        var keys = new ObjectReferenceKeyframe[animation.Frames + 1];
+        for (int i = 0; i <= animation.Frames; i++)
         {
-            for (int y = 0; y < h; y++)
-                for (int x = 0; x < w; x++)
-                    if (Mathf.Pow((x + 0.5f - cx) / rx, 2f) + Mathf.Pow((y + 0.5f - cy) / ry, 2f) <= 1f) Put(x, y, c);
-        }
-        void Line(Vector2 a, Vector2 b, float thickness, Color c)
-        {
-            int steps = Mathf.CeilToInt(Vector2.Distance(a, b) * 2f);
-            for (int s = 0; s <= steps; s++)
+            // La última clave repite el último frame para que dure un frame completo
+            keys[i] = new ObjectReferenceKeyframe
             {
-                Vector2 p = Vector2.Lerp(a, b, s / (float)steps);
-                for (int y = -2; y <= 2; y++)
-                    for (int x = -2; x <= 2; x++)
-                        if (new Vector2(x, y).magnitude <= thickness * 0.5f) Put(Mathf.RoundToInt(p.x) + x, Mathf.RoundToInt(p.y) + y, c);
-            }
+                time = i / animation.Fps,
+                value = sheet.Frame(animation.Name, Mathf.Min(i, animation.Frames - 1)),
+            };
         }
+        AnimationUtility.SetObjectReferenceCurve(clip, binding, keys);
 
-        // Piernas
-        Rect(12 + pose.LeftLegDx, pose.LeftLift, 14 + pose.LeftLegDx, 11, legs);
-        Rect(17 + pose.RightLegDx, pose.RightLift, 19 + pose.RightLegDx, 11, legs);
+        AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
+        settings.loopTime = animation.Loop;
+        AnimationUtility.SetAnimationClipSettings(clip, settings);
 
-        // Capa (trapecio que se ensancha y se balancea)
-        for (int y = 8; y <= 34; y++)
-        {
-            float t = (y - 8) / 26f;
-            float half = Mathf.Lerp(8f + pose.Flare, 5f, t);
-            float center = 16f + pose.Sway * (1f - t);
-            for (int x = Mathf.FloorToInt(center - half); x <= Mathf.CeilToInt(center + half) - 1; x++)
-                Put(x, y, x < center - half + 2 ? cloakShade : cloak);
-        }
-
-        // Clavo (espada) en ataque
-        if (pose.NailAngle.HasValue)
-        {
-            Vector2 hand = new Vector2(21f, 24f);
-            float rad = pose.NailAngle.Value * Mathf.Deg2Rad;
-            Line(hand, hand + new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * 12f, 2f, nail);
-        }
-
-        // Cabeza-máscara, cuernos y ojos
-        int hy = 42 + pose.HeadDy;
-        Line(new Vector2(12, hy + 6), new Vector2(9, hy + 16), 2.2f, mask);
-        Line(new Vector2(20, hy + 6), new Vector2(23, hy + 16), 2.2f, mask);
-        Ellipse(16f, hy, 7f, 8f, mask);
-        if (pose.EyesClosed)
-        {
-            Rect(12, hy, 15, hy, eyes);
-            Rect(18, hy, 21, hy, eyes);
-        }
-        else
-        {
-            Ellipse(14f, hy, 1.6f, 2.8f, eyes);
-            Ellipse(20f, hy, 1.6f, 2.8f, eyes);
-        }
-
-        // Contorno oscuro de 1 px para legibilidad
-        var result = (Color[])px.Clone();
-        for (int y = 0; y < h; y++)
-        {
-            for (int x = 0; x < w; x++)
-            {
-                if (px[y * w + x].a > 0f) continue;
-                bool neighbour = (x > 0 && px[y * w + x - 1].a > 0f) || (x < w - 1 && px[y * w + x + 1].a > 0f)
-                              || (y > 0 && px[(y - 1) * w + x].a > 0f) || (y < h - 1 && px[(y + 1) * w + x].a > 0f);
-                if (neighbour) result[y * w + x] = outline;
-            }
-        }
-        return result;
+        AssetDatabase.CreateAsset(clip, path);
+        return clip;
     }
 
-    private static RuntimeAnimatorController BuildPlayerAnimator(Dictionary<string, Sprite> frames)
+    private static RuntimeAnimatorController BuildPlayerAnimator(Sheet sheet)
     {
-        AnimationClip Clip(string name, string prefix, int count, float fps, bool loop)
-        {
-            string path = $"{AnimationDir}/Player_{name}.anim";
-            AssetDatabase.DeleteAsset(path);
-
-            var clip = new AnimationClip { frameRate = fps };
-            var binding = EditorCurveBinding.PPtrCurve("", typeof(SpriteRenderer), "m_Sprite");
-            var keys = new ObjectReferenceKeyframe[count + 1];
-            for (int i = 0; i <= count; i++)
-            {
-                // La última clave repite el último frame para que dure un frame completo
-                keys[i] = new ObjectReferenceKeyframe { time = i / fps, value = frames[$"{prefix}_{Mathf.Min(i, count - 1)}"] };
-            }
-            AnimationUtility.SetObjectReferenceCurve(clip, binding, keys);
-
-            AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
-            settings.loopTime = loop;
-            AnimationUtility.SetAnimationClipSettings(clip, settings);
-
-            AssetDatabase.CreateAsset(clip, path);
-            return clip;
-        }
-
-        AnimationClip idle = Clip("Idle", "player_idle", 4, 6f, true);
-        AnimationClip run = Clip("Run", "player_run", 6, 12f, true);
-        AnimationClip jump = Clip("Jump", "player_jump", 1, 10f, true);
-        AnimationClip fall = Clip("Fall", "player_fall", 1, 10f, true);
-        AnimationClip attack = Clip("Attack", "player_attack", 3, 20f, false);
-        AnimationClip hurt = Clip("Hurt", "player_hurt", 1, 6f, false);
+        var clips = sheet.Animations.ToDictionary(a => a.Name, a => CreateClip(sheet, a, AnimationDir, $"Player_{a.Name}"));
 
         string controllerPath = $"{AnimationDir}/Player.controller";
         AssetDatabase.DeleteAsset(controllerPath);
@@ -433,17 +396,32 @@ public static class UnfilialBuilder
         controller.AddParameter("Speed", AnimatorControllerParameterType.Float);
         controller.AddParameter("IsGrounded", AnimatorControllerParameterType.Bool);
         controller.AddParameter("yVelocity", AnimatorControllerParameterType.Float);
+        controller.AddParameter("IsBlocking", AnimatorControllerParameterType.Bool);
+        controller.AddParameter("AttackDir", AnimatorControllerParameterType.Int);
         controller.AddParameter("Attack", AnimatorControllerParameterType.Trigger);
         controller.AddParameter("Hurt", AnimatorControllerParameterType.Trigger);
+        controller.AddParameter("Dash", AnimatorControllerParameterType.Trigger);
+        controller.AddParameter("Death", AnimatorControllerParameterType.Trigger);
 
         AnimatorStateMachine machine = controller.layers[0].stateMachine;
-        AnimatorState sIdle = machine.AddState("Idle", new Vector3(300, 0));
-        AnimatorState sRun = machine.AddState("Run", new Vector3(300, 120));
-        AnimatorState sJump = machine.AddState("Jump", new Vector3(600, 0));
-        AnimatorState sFall = machine.AddState("Fall", new Vector3(600, 120));
-        AnimatorState sAttack = machine.AddState("Attack", new Vector3(0, 240));
-        AnimatorState sHurt = machine.AddState("Hurt", new Vector3(300, 240));
-        sIdle.motion = idle; sRun.motion = run; sJump.motion = jump; sFall.motion = fall; sAttack.motion = attack; sHurt.motion = hurt;
+        AnimatorState State(string name, string clip, float x, float y)
+        {
+            AnimatorState state = machine.AddState(name, new Vector3(x, y));
+            state.motion = clips[clip];
+            return state;
+        }
+
+        AnimatorState sIdle = State("Idle", "idle", 300, 0);
+        AnimatorState sRun = State("Run", "run", 300, 120);
+        AnimatorState sJump = State("Jump", "jump", 600, 0);
+        AnimatorState sFall = State("Fall", "fall", 600, 120);
+        AnimatorState sBlock = State("Block", "block", 0, 120);
+        AnimatorState sAttack = State("Attack", "attack", 0, 260);
+        AnimatorState sAttackUp = State("AttackUp", "attack_up", 200, 260);
+        AnimatorState sAttackDown = State("AttackDown", "attack_down", 400, 260);
+        AnimatorState sDash = State("Dash", "dash", 600, 260);
+        AnimatorState sHurt = State("Hurt", "hurt", 800, 260);
+        AnimatorState sDeath = State("Death", "death", 800, 0);
         machine.defaultState = sIdle;
 
         // Transiciones reactivas: sin Exit Time y duración 0 (cortes nítidos de pixel art)
@@ -467,7 +445,10 @@ public static class UnfilialBuilder
             AnimatorStateTransition toFall = To(grounded, sFall);
             toFall.AddCondition(AnimatorConditionMode.IfNot, 0f, "IsGrounded");
             toFall.AddCondition(AnimatorConditionMode.Less, -0.1f, "yVelocity");
+
+            To(grounded, sBlock).AddCondition(AnimatorConditionMode.If, 0f, "IsBlocking");
         }
+        To(sBlock, sIdle).AddCondition(AnimatorConditionMode.IfNot, 0f, "IsBlocking");
 
         To(sJump, sFall).AddCondition(AnimatorConditionMode.Less, 0f, "yVelocity");
         To(sFall, sJump).AddCondition(AnimatorConditionMode.Greater, 0.1f, "yVelocity"); // doble salto
@@ -486,19 +467,58 @@ public static class UnfilialBuilder
         }
 
         // Acciones de un pulso desde cualquier estado
-        AnimatorStateTransition anyAttack = machine.AddAnyStateTransition(sAttack);
-        anyAttack.hasExitTime = false; anyAttack.duration = 0f; anyAttack.canTransitionToSelf = true;
-        anyAttack.AddCondition(AnimatorConditionMode.If, 0f, "Attack");
+        AnimatorStateTransition FromAny(AnimatorState to, string trigger, bool toSelf)
+        {
+            AnimatorStateTransition t = machine.AddAnyStateTransition(to);
+            t.hasExitTime = false;
+            t.duration = 0f;
+            t.canTransitionToSelf = toSelf;
+            t.AddCondition(AnimatorConditionMode.If, 0f, trigger);
+            return t;
+        }
 
-        AnimatorStateTransition anyHurt = machine.AddAnyStateTransition(sHurt);
-        anyHurt.hasExitTime = false; anyHurt.duration = 0f; anyHurt.canTransitionToSelf = false;
-        anyHurt.AddCondition(AnimatorConditionMode.If, 0f, "Hurt");
+        FromAny(sAttack, "Attack", true).AddCondition(AnimatorConditionMode.Equals, 0f, "AttackDir");
+        FromAny(sAttackUp, "Attack", true).AddCondition(AnimatorConditionMode.Equals, 1f, "AttackDir");
+        FromAny(sAttackDown, "Attack", true).AddCondition(AnimatorConditionMode.Equals, -1f, "AttackDir");
+        FromAny(sDash, "Dash", false);
+        FromAny(sHurt, "Hurt", false);
+        FromAny(sDeath, "Death", false);
 
         // Al terminar la acción vuelve a Idle (desde allí reacciona a Run/Jump/Fall en el siguiente frame)
-        foreach (AnimatorState action in new[] { sAttack, sHurt })
+        foreach (AnimatorState action in new[] { sAttack, sAttackUp, sAttackDown, sDash, sHurt })
         {
             AnimatorStateTransition back = action.AddTransition(sIdle);
-            back.hasExitTime = true; back.exitTime = 1f; back.duration = 0f;
+            back.hasExitTime = true;
+            back.exitTime = 1f;
+            back.duration = 0f;
+        }
+
+        EditorUtility.SetDirty(controller);
+        return controller;
+    }
+
+    /// <summary>
+    /// Animator del jefe: un estado por animación (idle, move, attack_melee, attack_special, hurt, phase2, death).
+    /// BossController los reproduce directamente con Animator.Play según su IA.
+    /// </summary>
+    private static RuntimeAnimatorController BuildBossAnimator(Sheet sheet, string id)
+    {
+        string folder = $"{Root}/Animations/Bosses";
+        Directory.CreateDirectory(folder);
+        AssetDatabase.Refresh();
+
+        string controllerPath = $"{folder}/Boss_{id}.controller";
+        AssetDatabase.DeleteAsset(controllerPath);
+        AnimatorController controller = AnimatorController.CreateAnimatorControllerAtPath(controllerPath);
+        AnimatorStateMachine machine = controller.layers[0].stateMachine;
+
+        float y = 0f;
+        foreach (SheetAnimation animation in sheet.Animations)
+        {
+            AnimatorState state = machine.AddState(animation.Name, new Vector3(300, y));
+            state.motion = CreateClip(sheet, animation, folder, $"Boss_{id}_{animation.Name}");
+            if (animation.Name == "idle") machine.defaultState = state;
+            y += 70f;
         }
 
         EditorUtility.SetDirty(controller);
@@ -653,7 +673,11 @@ public static class UnfilialBuilder
     {
         string path = WriteTexture(name, width, height, pixels);
         ConfigureImporter(path, SpriteImportMode.Multiple, pixelsPerUnit);
+        return SliceSheet(path, rects);
+    }
 
+    private static Dictionary<string, Sprite> SliceSheet(string path, List<(string name, Rect rect)> rects)
+    {
         // Corte de la hoja con la API del Sprite Editor (conserva los IDs si ya existían)
         var factory = new SpriteDataProviderFactories();
         factory.Init();
@@ -831,7 +855,7 @@ public static class UnfilialBuilder
     {
         var prefabs = new Prefabs();
         prefabs.HitVfx = SavePrefab(CreateHitVfx(art), VfxPrefabDir, "VFX_HitImpact");
-        prefabs.Projectile = SavePrefab(CreateProjectile(art), PrefabDir, "Projectile");
+        prefabs.Projectile = SavePrefab(CreateProjectile(art, "Projectile", new Color(0.55f, 1f, 0.9f), 0.7f, 7f, 15), PrefabDir, "Projectile");
         prefabs.Player = SavePrefab(CreatePlayer(art, prefabs.HitVfx), PrefabDir, "Player");
         prefabs.Crawler = SavePrefab(CreateMeleeEnemy(art, "Enemy_Crawler", art.Crawler, CrawlerTint, new Vector2(0.9f, 0.6f), Vector2.zero,
             health: 3, orbs: 1, knockback: 6f, speed: 1.8f, chaseSpeed: 3.6f, detection: 6f,
@@ -845,6 +869,15 @@ public static class UnfilialBuilder
         prefabs.Canvas = SavePrefab(CreateGameCanvas(art), PrefabDir, "GameCanvas");
         prefabs.GameManager = SavePrefab(new GameObject("GameManager", typeof(GameManager)), PrefabDir, "GameManager");
         prefabs.AudioManager = SavePrefab(CreateAudioManager(audio), PrefabDir, "AudioManager");
+
+        prefabs.Bosses = new GameObject[Bosses.Length];
+        for (int i = 0; i < Bosses.Length; i++)
+        {
+            BossDef boss = Bosses[i];
+            GameObject projectile = SavePrefab(CreateProjectile(art, $"Projectile_{boss.Id}", boss.ProjectileColor, boss.ProjectileScale,
+                boss.ProjectileSpeed, boss.ProjectileDamage), PrefabDir, $"Projectile_{boss.Id}");
+            prefabs.Bosses[i] = SavePrefab(CreateBoss(art, boss, i, projectile), PrefabDir, $"Boss_{boss.Id}");
+        }
         return prefabs;
     }
 
@@ -932,13 +965,13 @@ public static class UnfilialBuilder
         return go;
     }
 
-    private static GameObject CreateProjectile(Art art)
+    private static GameObject CreateProjectile(Art art, string name, Color color, float scale, float speed, int damage)
     {
-        var go = new GameObject("Projectile");
-        go.transform.localScale = Vector3.one * 0.7f;
+        var go = new GameObject(name);
+        go.transform.localScale = Vector3.one * scale;
         var renderer = go.AddComponent<SpriteRenderer>();
         renderer.sprite = art.Orb;
-        renderer.color = new Color(0.55f, 1f, 0.9f);
+        renderer.color = color;
         renderer.sortingOrder = 9;
 
         var rb = go.AddComponent<Rigidbody2D>();
@@ -951,7 +984,7 @@ public static class UnfilialBuilder
         circle.radius = 0.2f;
 
         var projectile = go.AddComponent<Projectile>();
-        Set(projectile, ("groundLayer", Mask(GroundLayer)));
+        Set(projectile, ("groundLayer", Mask(GroundLayer)), ("speed", speed), ("damage", damage));
         return go;
     }
 
@@ -962,7 +995,7 @@ public static class UnfilialBuilder
         player.layer = PlayerLayer;
 
         var renderer = player.AddComponent<SpriteRenderer>();
-        renderer.sprite = art.PlayerFrames["player_idle_0"];
+        renderer.sprite = art.PlayerSheet.Frame("idle", 0);
         renderer.sortingOrder = 10;
 
         var animator = player.AddComponent<Animator>();
@@ -977,24 +1010,13 @@ public static class UnfilialBuilder
         rb.sharedMaterial = art.NoFriction; // Evita quedarse pegado a las paredes
 
         var capsule = player.AddComponent<CapsuleCollider2D>();
-        capsule.size = new Vector2(0.75f, 1.9f);
-        capsule.offset = new Vector2(0f, -0.04f);
+        // Silueta medida en la hoja: pies en y=-0.91, cabeza (sin cuernos) en ~0.75
+        capsule.size = new Vector2(0.6f, 1.65f);
+        capsule.offset = new Vector2(0f, -0.075f);
 
-        Transform groundCheck = Child(player, "GroundCheck", new Vector2(0f, -1f));
+        Transform groundCheck = Child(player, "GroundCheck", new Vector2(0f, -0.92f));
         Transform attackPoint = Child(player, "AttackPoint", new Vector2(0.95f, 0.1f));
-
-        Transform slash = Child(player, "SlashFX", new Vector2(0.95f, 0.1f));
-        var slashRenderer = slash.gameObject.AddComponent<SpriteRenderer>();
-        slashRenderer.sprite = art.Slash;
-        slashRenderer.color = new Color(1f, 1f, 1f, 0.95f);
-        slashRenderer.sortingOrder = 11;
-        var slashEffect = slash.gameObject.AddComponent<SlashEffect>();
-
-        Transform shieldVisual = Child(player, "ShieldFX", new Vector2(0.6f, 0f));
-        var shieldRenderer = shieldVisual.gameObject.AddComponent<SpriteRenderer>();
-        shieldRenderer.sprite = art.Shield;
-        shieldRenderer.sortingOrder = 11;
-        shieldRenderer.enabled = false;
+        // La hoja ya dibuja el tajo y el escudo: no hacen falta los efectos superpuestos (SlashFX / ShieldFX)
 
         player.AddComponent<PlayerInput>();
         var movement = player.AddComponent<PlayerMovement>();
@@ -1004,12 +1026,11 @@ public static class UnfilialBuilder
             ("groundCheck", groundCheck), ("groundCheckRadius", 0.2f), ("groundLayer", Mask(GroundLayer)));
 
         var shield = player.AddComponent<PlayerShield>();
-        Set(shield, ("shieldVisual", shieldRenderer));
 
         player.AddComponent<PlayerHealth>();
 
         var attack = player.AddComponent<PlayerAttack>();
-        Set(attack, ("attackPoint", attackPoint), ("enemyLayer", Mask(EnemyLayer)), ("slashEffect", slashEffect),
+        Set(attack, ("attackPoint", attackPoint), ("enemyLayer", Mask(EnemyLayer)), ("verticalAttackOffset", 1.2f),
             ("shield", shield), ("hitImpactVfx", hitVfx.GetComponent<ParticleSystem>()));
 
         player.AddComponent<PlayerAnimator>();
@@ -1066,6 +1087,49 @@ public static class UnfilialBuilder
         var shooter = enemy.AddComponent<EnemyShooter>();
         Set(shooter, ("playerLayer", Mask(PlayerLayer)), ("firePoint", firePoint));
         return enemy;
+    }
+
+    private static GameObject CreateBoss(Art art, BossDef def, int index, GameObject projectile)
+    {
+        var boss = new GameObject($"Boss_{def.Id}");
+        boss.layer = EnemyLayer;
+
+        var renderer = boss.AddComponent<SpriteRenderer>();
+        renderer.sprite = art.BossSheets[index].Frame("idle", 0);
+        renderer.sortingOrder = 9;
+
+        var animator = boss.AddComponent<Animator>();
+        animator.runtimeAnimatorController = art.BossControllers[index];
+
+        var rb = boss.AddComponent<Rigidbody2D>();
+        rb.mass = 50f;
+        rb.gravityScale = def.Flying ? 0f : 3f;
+        rb.freezeRotation = true;
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.sharedMaterial = art.NoFriction;
+
+        var box = boss.AddComponent<BoxCollider2D>();
+        box.size = def.ColliderSize;
+        box.offset = def.ColliderOffset;
+
+        var health = boss.AddComponent<BossHealth>();
+        Set(health, ("maxHealth", def.Health), ("orbReward", def.Orbs));
+
+        var pool = boss.AddComponent<ProjectilePool>();
+        Set(pool, ("projectilePrefab", projectile.GetComponent<Projectile>()), ("maxSize", 30));
+
+        var impulse = boss.AddComponent<CinemachineImpulseSource>();
+        impulse.ImpulseDefinition.ImpulseDuration = 0.3f;
+
+        Transform firePoint = Child(boss, "FirePoint", def.FirePoint);
+
+        var controller = boss.AddComponent<BossController>();
+        Set(controller,
+            ("bossName", def.Name), ("special", (int)def.Special), ("playerLayer", Mask(PlayerLayer)), ("groundLayer", Mask(GroundLayer)),
+            ("moveSpeed", def.Speed), ("isFlying", def.Flying), ("meleeRange", def.MeleeRange), ("lungeSpeed", def.LungeSpeed),
+            ("strikeBoxSize", def.StrikeBox), ("firePoint", firePoint));
+        return boss;
     }
 
     private static GameObject EnemyBase(string name, Sprite sprite, Color tint, Vector2 colliderSize, Vector2 colliderOffset, float mass, PhysicsMaterial2D material)
@@ -1178,6 +1242,31 @@ public static class UnfilialBuilder
         power.fontSizeMax = 32f;
         Place(power.gameObject, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-50f, -100f), new Vector2(460f, 44f));
 
+        // Barra de vida del jefe (abajo, centrada)
+        GameObject bossBar = NewUI("BossBar", hud.transform);
+        Place(bossBar, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 50f), new Vector2(1100f, 80f));
+        TextMeshProUGUI bossName = Label("BossName", bossBar.transform, "JEFE", 32f, Gold);
+        bossName.characterSpacing = 8f;
+        Place(bossName.gameObject, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), Vector2.zero, new Vector2(1100f, 44f));
+        GameObject bossBackground = NewUI("Background", bossBar.transform);
+        Place(bossBackground, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), Vector2.zero, new Vector2(1100f, 26f));
+        var bossBackgroundImage = bossBackground.AddComponent<Image>();
+        bossBackgroundImage.sprite = art.UIWhite;
+        bossBackgroundImage.color = new Color(0.08f, 0.05f, 0.07f, 0.9f);
+        bossBackgroundImage.raycastTarget = false;
+        GameObject bossFillGo = NewUI("Fill", bossBackground.transform);
+        Stretch(bossFillGo);
+        ((RectTransform)bossFillGo.transform).offsetMin = new Vector2(4f, 4f);
+        ((RectTransform)bossFillGo.transform).offsetMax = new Vector2(-4f, -4f);
+        var bossFill = bossFillGo.AddComponent<Image>();
+        bossFill.sprite = art.UIWhite;
+        bossFill.color = new Color(0.85f, 0.22f, 0.3f);
+        bossFill.type = Image.Type.Filled;
+        bossFill.fillMethod = Image.FillMethod.Horizontal;
+        bossFill.fillOrigin = (int)Image.OriginHorizontal.Left;
+        bossFill.raycastTarget = false;
+        bossBar.SetActive(false);
+
         TextMeshProUGUI title = Label("LevelTitle", canvas.transform, "NIVEL", 84f, Color.white);
         title.characterSpacing = 8f;
         Place(title.gameObject, new Vector2(0.5f, 0.7f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1600f, 260f));
@@ -1223,7 +1312,8 @@ public static class UnfilialBuilder
 
         var ui = canvas.AddComponent<UIManager>();
         Set(ui, ("healthFill", healthFill), ("orbsText", orbs), ("powerText", power), ("levelTitleText", title),
-            ("toastText", toast), ("gameOverPanel", gameOver.gameObject), ("levelCompletePanel", levelComplete.gameObject));
+            ("toastText", toast), ("gameOverPanel", gameOver.gameObject), ("levelCompletePanel", levelComplete.gameObject),
+            ("bossBar", bossBar), ("bossHealthFill", bossFill), ("bossNameText", bossName));
 
         var pause = canvas.AddComponent<PauseMenu>();
         Set(pause, ("pausePanel", pausePanel.gameObject), ("soundPanel", soundPanel.gameObject), ("resumeButton", resume),
@@ -1487,6 +1577,8 @@ public static class UnfilialBuilder
         }
 
         // Fuera del mapa cuenta como sólido para no dibujar bordes en los límites
+        bool hasBoss = lines.Any(l => l.Contains('K'));
+
         bool Solid(int x, int y) => x < 0 || x >= width || y < 0 || y >= height || Cell(x, y) == '#';
 
         Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -1557,8 +1649,12 @@ public static class UnfilialBuilder
                     case 'o':
                         Spawn(prefabs.Orb, scene, orbs, new Vector2(x + 0.5f, y + 0.5f));
                         break;
+                    case 'K':
+                        Spawn(prefabs.Bosses[level.Boss], scene, null, new Vector2(x + 0.5f, y + Bosses[level.Boss].SpawnHeight));
+                        break;
                     case 'X':
-                        Spawn(prefabs.Exit, scene, null, new Vector2(x + 0.5f, y + 1.5f));
+                        GameObject exit = Spawn(prefabs.Exit, scene, null, new Vector2(x + 0.5f, y + 1.5f));
+                        if (hasBoss) exit.AddComponent<ExitGate>(); // Sellado hasta derrotar al jefe
                         break;
                 }
             }
