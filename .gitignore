@@ -23,3 +23,7 @@
 # OS generated
 .DS_Store
 Thumbs.db
+
+# Salidas intermedias del generador de sprites (los PNG finales viven en Assets/_Project/Art/Sprites/Characters)
+/SpriteGen/*.png
+/SpriteGen/*.json

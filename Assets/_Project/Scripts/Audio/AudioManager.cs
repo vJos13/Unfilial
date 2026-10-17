@@ -99,10 +99,16 @@ public class AudioManager : MonoBehaviour
 
     private void ApplyVolumes()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // WebGL no procesa el AudioMixer: el volumen se aplica directamente a las fuentes
+        if (musicSource != null) musicSource.volume = VolumeSettings.Music;
+        if (sfxSource != null) sfxSource.volume = VolumeSettings.Sfx;
+#else
         if (mixer == null) return;
 
         mixer.SetFloat(MusicVolumeParam, ToDecibels(VolumeSettings.Music));
         mixer.SetFloat(SfxVolumeParam, ToDecibels(VolumeSettings.Sfx));
+#endif
     }
 
     // Slider lineal (0-1) a decibelios: el oído percibe el volumen de forma logarítmica

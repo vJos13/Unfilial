@@ -33,6 +33,10 @@ public class MainMenuController : MonoBehaviour
         levelsButton.onClick.AddListener(() => ShowPanel(levelsPanel, levelButtons[0]));
         soundButton.onClick.AddListener(() => ShowPanel(soundPanel, soundBackButton));
         quitButton.onClick.AddListener(Quit);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // En el navegador no se puede cerrar la aplicación: se oculta "Salir"
+        quitButton.gameObject.SetActive(false);
+#endif
         levelsBackButton.onClick.AddListener(() => ShowPanel(mainPanel, levelsButton));
         soundBackButton.onClick.AddListener(() => ShowPanel(mainPanel, soundButton));
 
