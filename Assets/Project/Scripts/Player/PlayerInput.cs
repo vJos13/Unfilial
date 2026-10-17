@@ -6,6 +6,7 @@ public class PlayerInput : MonoBehaviour
     public Vector2 MoveInput { get; private set; }
     public bool JumpTriggered { get; private set; }
     public bool DashTriggered { get; private set; } // Nueva variable para el Dash
+    public bool AttackTriggered { get; private set; }
 
     private GameInputActions inputActions;
 
@@ -19,12 +20,14 @@ public class PlayerInput : MonoBehaviour
         inputActions.Player.Enable();
         inputActions.Player.Jump.performed += OnJump;
         inputActions.Player.Dash.performed += OnDash; // Suscribimos el Dash
+        inputActions.Player.Attack.performed += OnAttack;
     }
 
     private void OnDisable()
     {
         inputActions.Player.Jump.performed -= OnJump;
         inputActions.Player.Dash.performed -= OnDash; // Desuscribimos
+        inputActions.Player.Attack.performed -= OnAttack;
         inputActions.Player.Disable();
     }
 
@@ -43,6 +46,12 @@ public class PlayerInput : MonoBehaviour
         DashTriggered = true;
     }
 
+    private void OnAttack(InputAction.CallbackContext context)
+    {
+        AttackTriggered = true;
+    }
+
     public void ConsumeJump() => JumpTriggered = false;
     public void ConsumeDash() => DashTriggered = false; // Consumir el Dash
+    public void ConsumeAttack() => AttackTriggered = false;
 }
